@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-*vp__)az8-e!=$tr@uqub%srj9&p-d96r#1hp6r@p8rdkc27#8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['bogdan-boutique-app.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -119,18 +119,20 @@ LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'boutique.wsgi.application'
 
-
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
+else:
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
